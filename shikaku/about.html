@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Shikaku — Arcade</title>
+<style>
+:root {
+  --bg: #0a0a0c;
+  --bg-2: #14141a;
+  --fg: #e8e4d4;
+  --fg-dim: #9a9588;
+  --accent: #d9b66c;
+  --border: #2a2a32;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: var(--bg); color: var(--fg); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; line-height: 1.55; }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+.wrap { max-width: 1100px; margin: 0 auto; padding: 2.5rem 1.5rem 4rem; }
+header.site { padding: 3rem 0 1.5rem; border-bottom: 1px solid var(--border); margin-bottom: 2.5rem; }
+header.site h1 { font-size: 2.4rem; margin: 0 0 0.4rem; letter-spacing: -0.01em; }
+header.site p.lede { color: var(--fg-dim); max-width: 64ch; margin: 0; font-size: 1.05rem; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.25rem; }
+.card { background: var(--bg-2); border: 1px solid var(--border); border-radius: 10px; padding: 1.25rem; display: flex; flex-direction: column; gap: 0.6rem; transition: transform .12s ease, border-color .12s ease; }
+.card:hover { transform: translateY(-2px); border-color: var(--accent); }
+.card a.title { color: var(--fg); font-size: 1.2rem; font-weight: 600; }
+.card .thumb { width: 100%; aspect-ratio: 16 / 9; background: #050507; border-radius: 6px; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.card .thumb svg { width: 80%; height: 80%; }
+.card .tagline { color: var(--fg-dim); font-size: 0.92rem; margin: 0; }
+.card .actions { margin-top: 0.4rem; display: flex; gap: 0.8rem; font-size: 0.9rem; }
+.back { display: inline-block; margin-bottom: 1.5rem; color: var(--fg-dim); font-size: 0.9rem; }
+article { max-width: 70ch; }
+article h1 { font-size: 2rem; margin: 0 0 0.5rem; }
+article h2 { margin-top: 2.2rem; font-size: 1.25rem; color: var(--accent); }
+article p { color: #d5d0bf; }
+article ul { color: #d5d0bf; }
+article .play-cta { display: inline-block; background: var(--accent); color: #1a1408; padding: 0.7rem 1.4rem; border-radius: 6px; font-weight: 600; margin: 1rem 0; }
+article .play-cta:hover { text-decoration: none; opacity: 0.92; }
+footer.site { color: var(--fg-dim); font-size: 0.85rem; margin-top: 4rem; padding-top: 1.5rem; border-top: 1px solid var(--border); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="../">← arcade</a>
+  <article>
+    <h1>Shikaku</h1>
+    <p class="tagline" style="color:var(--fg-dim);font-size:1.05rem;">Partition the grid into rectangles. Each clue equals its area.</p>
+
+    <a class="play-cta" href="./">▶ Play Shikaku</a>
+
+    <h2>About</h2>
+    <p>Shikaku (四角に切れ) — a Nikoli partition puzzle on a 10×10 grid. Divide the grid into axis-aligned rectangles such that each rectangle contains exactly one numbered clue and the number equals the rectangle's area in cells. Every cell ends up inside exactly one rectangle. Tap-tap commit model (anchor → cursor → commit), no drag preview.</p>
+
+    <h2>How to play</h2>
+    <p>Arrow keys move the cursor. Press Space on an empty cell to set an anchor; press Space again at a different cell to commit a rectangle from anchor to cursor. The rectangle is accepted only if it contains exactly one clue and its area matches that clue. Press X to clear the rectangle covering the cursor cell. Press Escape to cancel a pending anchor. Win when every cell belongs to a committed rectangle.</p>
+
+    <h2>Features</h2>
+    <ul>
+      <li>10×10 partition puzzle</li>
+      <li>Tap-tap commit input model (no drag)</li>
+      <li>Per-commit rectangle validation — invalid commits rejected</li>
+      <li>Unique-solution generation</li>
+      <li>Numbered-clue area constraints</li>
+      <li>Vanilla TypeScript single-bundle build</li>
+    </ul>
+
+    <p style="margin-top:2.5rem;"><a href="../">← back to arcade</a></p>
+  </article>
+  <footer class="site">
+    <p>Open source · MIT licensed · <a href="https://github.com/brotatotes/studio-arcade">source on GitHub</a></p>
+  </footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,14 @@
+# macOS
+.DS_Store
+
+# Editors
+*.swp
+.vscode/
+.idea/
+
+# Python
+__pycache__/
+*.pyc
+
+# Local builds (everything lives at root in this repo)
+node_modules/

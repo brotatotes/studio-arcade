@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Sudoku — Deploy Notes</title>
+<style>
+  body { font-family: sans-serif; max-width: 640px; margin: 2em auto; padding: 0 1em; line-height: 1.5; color: #222; background: #f4f0e6; }
+  code { background: #ece6d3; padding: 0.1em 0.3em; border-radius: 3px; }
+  h1, h2 { font-family: monospace; }
+</style>
+</head>
+<body>
+<h1>Sudoku</h1>
+<p>A two-color 9×9 Sudoku puzzle. One puzzle per seed; every generated puzzle has a unique solution.</p>
+
+<h2>Rules</h2>
+<ul>
+  <li>Fill every cell so that each of the digits <strong>1..9</strong> appears exactly once in every <strong>row</strong>, every <strong>column</strong>, and every <strong>3×3 box</strong>.</li>
+  <li>The puzzle starts with some cells already filled — these are the <strong>givens</strong> and cannot be changed.</li>
+  <li>You win when every empty cell is filled correctly (all 27 row/column/box constraints satisfied).</li>
+</ul>
+
+<h2>Visual conventions</h2>
+<ul>
+  <li>Strict two-color palette: black ink on an off-white background.</li>
+  <li><strong>Givens</strong> are rendered <em>large and centered</em> in their cell (scale-4 glyphs).</li>
+  <li><strong>User-entered digits</strong> are rendered <em>much smaller</em> and positioned in the <em>top-right corner</em> of their cell (scale-2 glyphs, roughly half the size of givens). This makes givens vs. player entries unambiguously distinguishable from a screenshot.</li>
+  <li><strong>Pencil marks</strong> (candidates) are tiny digits in a 3×3 sub-grid inside an empty cell.</li>
+  <li><strong>Coordinate labels</strong>: rows labeled <code>A..I</code> down the left edge, columns labeled <code>1..9</code> across the top. These are orientation labels only, not playable cells.</li>
+  <li>3×3 box boundaries are drawn with thick (3 px) lines; individual cell boundaries with thin (1 px) lines.</li>
+  <li>The selected cell shows a solid black <strong>cursor highlight</strong>; the digit in that cell (if any) is inverted to the off-white color.</li>
+</ul>
+
+<h2>Controls</h2>
+<ul>
+  <li><strong>Title screen:</strong> press any key to begin.</li>
+  <li><strong>Arrow keys:</strong> move the cursor.</li>
+  <li><strong>1..9:</strong> enter a digit into the selected cell (or toggle a pencil mark in pencil mode).</li>
+  <li><strong>P:</strong> toggle pencil-mark mode. A small filled square appears in the top-left while pencil mode is active.</li>
+  <li><strong>0 / Delete / Backspace:</strong> clear the selected cell.</li>
+</ul>
+
+<h2>Win condition</h2>
+<p>When the board is fully and correctly filled, a black-bordered off-white panel appears centered over the grid with the word <strong>SOLVED</strong>.</p>
+
+<h2>URL parameters</h2>
+<ul><li><code>?seed=N</code> — integer seed for puzzle generation (default <code>1</code>).</li></ul>
+
+<h2>What's verified</h2>
+<ul>
+  <li><strong>Generator correctness &amp; uniqueness</strong> — 1000-puzzle sample, 100% uniqueness on accepted puzzles, ≥40% acceptance rate.</li>
+  <li><strong>Difficulty distribution</strong> — technique-tier classifier (naked/hidden singles → pointing/pairs → X-wing/triples → swordfish/XY-wing); bars ≥35/30/20/10% easy/medium/hard/expert; 100% no-guess at expert and below.</li>
+  <li><strong>Solve correctness</strong> — 100 seeds played end-to-end (file://) and 10 seeds replayed over real HTTP serve; each reaches <code>state.won === true</code>.</li>
+  <li><strong>Legibility</strong> — Bar B blind vision-judge over 5 seeds; judge restates rules, counts givens (±3), identifies row/col/box constraints, describes UI affordances. Pass ≥4/5.</li>
+  <li><strong>Fuzz robustness</strong> — 200 puzzles × 10,000 random keypresses each (2,000,000 keys total); 0 pageerrors, 0 console errors, 0 state violations.</li>
+  <li><strong>Performance</strong> — render-bar frame time and FPS sampled across 5 seeds; bar = 60 FPS / 16.7 ms.</li>
+</ul>
+
+<h2>What's NOT verified</h2>
+<ul>
+  <li><strong>Touch / mobile input.</strong> Keyboard-driven only; no pointer-tap or touch gesture support and no verifier coverage of mobile browsers.</li>
+  <li><strong>Accessibility / screen readers.</strong> Pure canvas render — no DOM grid, no ARIA, no keyboard focus indicators outside the in-canvas cursor.</li>
+  <li><strong>Cross-browser parity.</strong> Verifiers run under Chromium only (Playwright default). Firefox / WebKit not exercised.</li>
+  <li><strong>Save state.</strong> Refreshing the page resets the puzzle. <code>?seed=N</code> is the only state-restoration mechanism.</li>
+  <li><strong>Real-time rule-violation feedback.</strong> Deliberately omitted (palette cleanliness); only <code>checkWin</code> fires on a fully-filled board.</li>
+</ul>
+
+<hr />
+<p><small>Two-color palette · 16 KB bundle ceiling · no runtime dependencies.</small></p>
+</body>
+</html>

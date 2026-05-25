@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Shikaku — Deploy Notes</title>
+<style>
+  body { font-family: sans-serif; max-width: 640px; margin: 2em auto; padding: 0 1em; line-height: 1.5; color: #222; background: #f4f0e6; }
+  code { background: #ece6d3; padding: 0.1em 0.3em; border-radius: 3px; }
+  h1, h2 { font-family: monospace; }
+  table { border-collapse: collapse; margin: 0.5em 0; }
+  th, td { border: 1px solid #999; padding: 0.3em 0.6em; text-align: left; font-size: 0.9em; }
+  th { background: #ece6d3; }
+</style>
+</head>
+<body>
+<h1>Shikaku</h1>
+<p>A two-color 10×10 Shikaku (四角に切れ) puzzle. One puzzle per seed; every generated puzzle has a unique solution.</p>
+
+<h2>Rules</h2>
+<ul>
+  <li>Divide the 10×10 grid into axis-aligned <strong>rectangles</strong>.</li>
+  <li>Each rectangle must contain <strong>exactly one</strong> numbered clue cell.</li>
+  <li>The clue's number equals the rectangle's <strong>area</strong> (in cells).</li>
+  <li>Every cell ends up inside exactly one rectangle (no gaps, no overlaps).</li>
+  <li>A <strong>SOLVED</strong> panel appears when the board is fully partitioned.</li>
+</ul>
+
+<h2>Controls</h2>
+<ul>
+  <li><strong>Title screen:</strong> press any key to begin.</li>
+  <li><strong>Arrow keys:</strong> move the cursor (clamps to the grid).</li>
+  <li><strong>Space (anchor):</strong> with no anchor set, mark the current cell as the rectangle anchor.</li>
+  <li><strong>Space (commit):</strong> with an anchor set, attempt to commit the rectangle from anchor to cursor (canonicalized). Failed commits leave the anchor in place; successful commits clear it.</li>
+  <li><strong>Escape:</strong> cancel the current anchor.</li>
+  <li><strong>X:</strong> clear the committed rectangle covering the cursor cell (if any). Always available, so no soft-lock is possible.</li>
+  <li>Other keys are ignored.</li>
+</ul>
+
+<h2>Visual conventions</h2>
+<p>Strict two-color palette: black ink on an off-white background. Every glyph below is rendered with that palette only — no greys, no anti-aliasing.</p>
+<table>
+  <tr><th>Element</th><th>Rendering</th></tr>
+  <tr><td>Empty uncommitted cell</td><td>Off-white, thin 1-px black grid line on all four sides</td></tr>
+  <tr><td>Empty cell inside committed rectangle</td><td>Off-white, <strong>no interior grid lines</strong>; the entire rectangle reads as one open region</td></tr>
+  <tr><td>Numbered clue cell</td><td>Off-white + scale-3 centered black digit (clue value, 1–16)</td></tr>
+  <tr><td>Numbered cell inside committed rectangle</td><td>Above + heavy outer rectangle border (see next row)</td></tr>
+  <tr><td>Committed-rectangle outline</td><td><strong>4-px thick</strong> solid black border on the rectangle's outer edges only (4× the uncommitted 1-px grid line, so completed rectangles stand out clearly against the lattice)</td></tr>
+  <tr><td>Cursor</td><td>2-px black inset border, drawn inside the current cell</td></tr>
+  <tr><td>Anchor (when set, not yet committed)</td><td>Small filled black square (~30% of cell) centered in the anchor cell</td></tr>
+  <tr><td>Coordinate labels</td><td>Rows <code>A..J</code> down the left edge; columns <code>1..10</code> across the top (scale-2 black glyphs in the outer margin)</td></tr>
+  <tr><td>SOLVED panel</td><td>Centered off-white panel with 4-px black border; the word <code>SOLVED</code> in scale-6 black</td></tr>
+</table>
+
+<h2>URL parameters</h2>
+<ul><li><code>?seed=N</code> — integer seed for puzzle generation (default <code>1</code>).</li></ul>
+
+<h2>What's verified</h2>
+<ul>
+  <li><strong>M0 — Generator + difficulty.</strong> 1000-puzzle deterministic verifier; 100% uniqueness on accepted; ≥40% acceptance; DLX search-tree classifier (branch points / backtracks); bars ≥35/30/20/10% easy/medium/hard/expert; 100% no-guess at hard and below.</li>
+  <li><strong>M1 — Solve correctness.</strong> 100 seeds replayed end-to-end via Playwright over <code>file://</code>; each reaches <code>state.won === true</code> after replaying the canonical anchor+commit key sequence.</li>
+  <li><strong>M2 — Legibility.</strong> Bar B blind vision-judge over 5 seeds with mid-game screenshots (2–3 canonical rectangles committed). Judge restates rules, counts numbered cells (±2), counts completed rectangles (±1), identifies digit value of named clue cells, identifies UI affordances. Pass ≥4/5.</li>
+  <li><strong>M3 — Fuzz + perf.</strong> 200 puzzles × 10,000 random keypresses (2,000,000 keys, 4 workers); 0 pageerrors / 0 console errors / 0 state violations. Frame timing across 5 seeds: median ≤16.7 ms (≥60 FPS bar).</li>
+  <li><strong>M4 — HTTP-serve parity.</strong> 10 seeds re-solved end-to-end under a real <code>http.server</code> on <code>127.0.0.1:PORT</code>, not <code>file://</code> — bundle works as a deployed static asset.</li>
+</ul>
+
+<h2>What's NOT verified</h2>
+<ul>
+  <li><strong>Touch / mobile input.</strong> Keyboard-driven only.</li>
+  <li><strong>Accessibility / screen readers.</strong> Pure canvas; no DOM grid, no ARIA.</li>
+  <li><strong>Cross-browser parity.</strong> Verifiers run under Chromium only.</li>
+  <li><strong>Save state.</strong> Refreshing resets the puzzle; <code>?seed=N</code> is the only restoration mechanism.</li>
+  <li><strong>Multi-anchor undo.</strong> No undo stack across committed rectangles beyond <code>X</code> on the cursor's cell — no global Ctrl+Z, no anchor history.</li>
+</ul>
+
+<hr />
+<p><small>Two-color palette · 16 KB bundle ceiling · no runtime dependencies.</small></p>
+</body>
+</html>

@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Star Battle — Deploy Notes</title>
+<style>
+  body { font-family: sans-serif; max-width: 640px; margin: 2em auto; padding: 0 1em; line-height: 1.5; color: #222; background: #f4f0e6; }
+  code { background: #ece6d3; padding: 0.1em 0.3em; border-radius: 3px; }
+  h1, h2 { font-family: monospace; }
+  table { border-collapse: collapse; margin: 0.5em 0; }
+  th, td { border: 1px solid #999; padding: 0.3em 0.6em; text-align: left; font-size: 0.9em; }
+  th { background: #ece6d3; }
+  svg { background: #e8e4d4; }
+</style>
+</head>
+<body>
+<h1>Star Battle (1★)</h1>
+<p>A two-color 8×8 Star Battle puzzle. One puzzle per seed; every generated puzzle has a unique solution.</p>
+
+<h2>Rules</h2>
+<ul>
+  <li>Place exactly <strong>one star</strong> in every <strong>row</strong>.</li>
+  <li>Place exactly <strong>one star</strong> in every <strong>column</strong>.</li>
+  <li>Place exactly <strong>one star</strong> in every <strong>region</strong> (the 8 pre-baked outlined groups; one star per region).</li>
+  <li><strong>No two stars may touch</strong>, even diagonally (king-move adjacency forbidden).</li>
+  <li>A <strong>SOLVED</strong> panel appears once all four rules are simultaneously satisfied (exactly 8 stars placed).</li>
+</ul>
+
+<h2>Controls</h2>
+<ul>
+  <li><strong>Title screen:</strong> press any key to begin.</li>
+  <li><strong>Arrow keys:</strong> move the cursor (clamps to the 8×8 grid).</li>
+  <li><strong>Space:</strong> toggle a star on the current cell.</li>
+  <li><strong>X:</strong> alias for Space — toggles the current cell.</li>
+  <li>Other keys are ignored. Soft-locks are impossible (toggling is fully reversible).</li>
+</ul>
+
+<h2>Visual key</h2>
+<p>Strict two-color palette: <code>#0a0a0a</code> ink on <code>#e8e4d4</code> off-white. No greys, no anti-aliasing. Every glyph is composed of palette-colored pixels.</p>
+<table>
+  <tr><th>Element</th><th>Rendering</th></tr>
+  <tr><td>Empty cell</td><td>Off-white interior, 1-px black grid line on each side</td></tr>
+  <tr><td>Star cell</td><td>Off-white interior + centered <strong>5-pointed black star glyph</strong> (fixed 17×17 pixel bitmap at scale 2 — about 60% of the cell)</td></tr>
+  <tr><td>Cell border (within a region)</td><td>1-px black line</td></tr>
+  <tr><td><strong>Region boundary</strong> (between adjacent regions, and grid outer edge)</td><td><strong>4-px thick</strong> solid black line — 4× the within-region grid line, so regions are clearly separated from cells</td></tr>
+  <tr><td>Cursor on empty cell</td><td>2-px black inset border around the current cell</td></tr>
+  <tr><td>Cursor on star cell</td><td>2-px <em>off-white</em> inset border (contrast inversion: drawn over the star at the cell edges only, leaving the star body visible)</td></tr>
+  <tr><td>Coordinate labels</td><td>Rows <code>A..H</code> down the left edge; columns <code>1..8</code> across the top (scale-2 black glyphs in the outer margin)</td></tr>
+  <tr><td>SOLVED panel</td><td>Centered off-white panel with 4-px black border; the word <code>SOLVED</code> in scale-6 black</td></tr>
+</table>
+
+<h2>Star glyph reference</h2>
+<p>The star is a deterministic 5-pointed shape rasterized as a 17×17 pixel bitmap (top point up). Two pixel colors only — black foreground, off-white background:</p>
+<pre style="background:#e8e4d4; color:#0a0a0a; font-family: monospace; line-height: 0.9; padding: 1em; display: inline-block; font-size: 1.1em;">
+        ##
+        ##
+       ####
+       ####
+##############
+ ############
+  ##########
+   ########
+   ########
+  ####  ####
+ ####    ####
+ ###      ###
+##          ##
+</pre>
+<p><em>(exact pixel placement depends on polygon scan-fill; the bundled bitmap is computed deterministically at boot.)</em></p>
+
+<h2>URL parameters</h2>
+<ul><li><code>?seed=N</code> — integer seed for puzzle generation (default <code>1</code>).</li></ul>
+
+<h2>What's verified</h2>
+<ul>
+  <li><strong>Generator correctness &amp; uniqueness</strong> — 1000-seed deterministic verifier; 100% uniqueness on accepted puzzles; ≥40% acceptance rate; tier distribution bars met.</li>
+  <li><strong>Solve correctness</strong> — 100 seeds replayed end-to-end via Playwright; each reaches <code>state.won === true</code> after replaying the canonical star placements via cursor + Space.</li>
+</ul>
+
+<h2>What's NOT verified</h2>
+<ul>
+  <li><strong>Touch / mobile input.</strong> Keyboard-driven only.</li>
+  <li><strong>Accessibility / screen readers.</strong> Pure canvas; no DOM grid, no ARIA.</li>
+  <li><strong>Cross-browser parity.</strong> Verifiers run under Chromium only.</li>
+  <li><strong>Save state.</strong> Refreshing resets the puzzle; <code>?seed=N</code> is the only restoration mechanism.</li>
+</ul>
+
+<hr />
+<p><small>Two-color palette · 16 KB bundle ceiling · no runtime dependencies.</small></p>
+</body>
+</html>

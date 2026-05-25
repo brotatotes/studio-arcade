@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Lanternkeep — Deploy Notes</title>
+<style>
+  body { font-family: sans-serif; max-width: 640px; margin: 2em auto; padding: 0 1em; line-height: 1.5; color: #222; background: #f4f0e6; }
+  code, pre { background: #ece6d3; padding: 0.1em 0.3em; border-radius: 3px; }
+  pre { padding: 0.8em; overflow-x: auto; }
+  h1, h2 { font-family: monospace; }
+  hr { border: none; border-top: 1px solid #bbb; margin: 2em 0; }
+</style>
+</head>
+<body>
+<h1>Lanternkeep</h1>
+<p>A 1-bit top-down stealth puzzle. Twelve hand-designed courtyards. Two-color palette (<code>#0a0a0a</code> black, <code>#e8e4d4</code> off-white) — no other colors, no external assets, no runtime dependencies.</p>
+
+<h2>Deploy</h2>
+<p>Static-site bundle. Three files:</p>
+<ul>
+  <li><code>index.html</code> — entry HTML, references <code>bundle.js</code> via a relative path.</li>
+  <li><code>bundle.js</code> — single minified ES2020 bundle, no runtime deps.</li>
+  <li><code>README.html</code> — this file.</li>
+</ul>
+<p>To host: copy <code>dist/</code> to any static-file host (GitHub Pages, S3, Netlify, plain nginx). Works under any subpath because <code>index.html</code> references <code>bundle.js</code> with no leading slash.</p>
+
+<h2>Controls</h2>
+<ul>
+  <li><strong>Title screen:</strong> press any key to begin (Space recommended).</li>
+  <li><strong>WASD or arrow keys:</strong> step one tile at a time (no diagonals).</li>
+  <li><strong>Space:</strong> toggle the lantern on/off. ON reveals the whole room but oil drains; OFF leaves only a 3-tile aura around the player.</li>
+</ul>
+
+<h2>Mechanics</h2>
+<ul>
+  <li><strong>Guards & vision cones:</strong> stepping into a cone while the lantern is ON triggers a brief blackout and respawn at the level entry tile. Lantern OFF is detection-immune. Cones stay visible even when the lantern is OFF — they glow.</li>
+  <li><strong>Oil meter:</strong> five segments, bottom-left of the canvas. Drains while the lantern is ON. At zero the lantern is forced OFF and cannot be re-lit until refilled.</li>
+  <li><strong>Refill wells:</strong> stepping onto a well restores oil to full. Wells reset on level transition and respawn.</li>
+  <li><strong>Patrols:</strong> some guards walk fixed routes. Cones sweep; routes are deterministic.</li>
+</ul>
+
+<h2>Win condition</h2>
+<p>Step onto the exit tile of the twelfth and final courtyard. The engine flips <code>state.won</code> to <code>true</code>, locks input, and after a brief hold the win/credits screen renders.</p>
+
+<hr />
+<p><small>Two-color palette · 16 KB bundle ceiling · no runtime dependencies.</small></p>
+</body>
+</html>

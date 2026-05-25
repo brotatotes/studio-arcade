@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Nonogram — Deploy Notes</title>
+<style>
+  body { font-family: sans-serif; max-width: 640px; margin: 2em auto; padding: 0 1em; line-height: 1.5; color: #222; background: #f4f0e6; }
+  code, pre { background: #ece6d3; padding: 0.1em 0.3em; border-radius: 3px; }
+  pre { padding: 0.8em; overflow-x: auto; }
+  h1, h2 { font-family: monospace; }
+  hr { border: none; border-top: 1px solid #bbb; margin: 2em 0; }
+</style>
+</head>
+<body>
+<h1>Nonogram</h1>
+<p>A two-color 10×10 nonogram (picross). One puzzle per seed; all generated puzzles have unique solutions.</p>
+
+<h2>Deploy</h2>
+<p>Static-site bundle. Three files:</p>
+<ul>
+  <li><code>index.html</code> — entry HTML, references <code>bundle.js</code> via a relative path.</li>
+  <li><code>bundle.js</code> — single minified ES2020 bundle, no runtime deps.</li>
+  <li><code>README.html</code> — this file.</li>
+</ul>
+<p>To host: copy <code>dist/</code> to any static-file host (GitHub Pages, S3, Netlify, plain nginx). Works under any subpath because <code>index.html</code> references <code>bundle.js</code> with no leading slash.</p>
+
+<h2>URL parameters</h2>
+<ul>
+  <li><code>?seed=N</code> — integer seed for puzzle generation (default <code>1</code>).</li>
+  <li><code>?glyph=triangle</code> — render the filled-cell glyph as a triangle instead of a square. Default is square.</li>
+</ul>
+<p>Example: <code>index.html?seed=42&amp;glyph=triangle</code></p>
+
+<h2>Controls</h2>
+<ul>
+  <li><strong>Title screen:</strong> press <em>Space</em> to begin.</li>
+  <li><strong>Mouse — left click:</strong> cycle a cell (empty → filled → marked-empty → empty).</li>
+  <li><strong>Mouse — right click:</strong> toggle the marked-empty (X) flag on a cell.</li>
+  <li><strong>Arrow keys:</strong> move the keyboard cursor.</li>
+  <li><strong>Space (during puzzle):</strong> cycle the cell under the cursor.</li>
+  <li><strong>X key:</strong> toggle marked-empty on the cell under the cursor.</li>
+</ul>
+
+<h2>Win condition</h2>
+<p>You win when every filled cell in your grid matches the unique solution for that seed. Marked-empty cells are ignored — only the pattern of filled cells matters. The board shows a win indicator once <code>state.won</code> flips to true.</p>
+
+<hr />
+<p><small>Two-color palette · 14 KB bundle ceiling · no runtime dependencies.</small></p>
+</body>
+</html>

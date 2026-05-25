@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Hashi — Deploy Notes</title>
+<style>
+  body { font-family: sans-serif; max-width: 640px; margin: 2em auto; padding: 0 1em; line-height: 1.5; color: #222; background: #f4f0e6; }
+  code, pre { background: #ece6d3; padding: 0.1em 0.3em; border-radius: 3px; }
+  pre { padding: 0.8em; overflow-x: auto; }
+  h1, h2 { font-family: monospace; }
+  hr { border: none; border-top: 1px solid #bbb; margin: 2em 0; }
+</style>
+</head>
+<body>
+<h1>Hashi</h1>
+<p>A two-color Hashi (also known as Hashiwokakero or Bridges) puzzle on a 7×7 island lattice. One puzzle per seed; all generated puzzles have unique solutions.</p>
+
+<h2>Deploy</h2>
+<p>Static-site bundle. Three files:</p>
+<ul>
+  <li><code>index.html</code> — entry HTML, references <code>bundle.js</code> via a relative path.</li>
+  <li><code>bundle.js</code> — single minified ES2020 bundle, no runtime deps.</li>
+  <li><code>README.html</code> — this file.</li>
+</ul>
+<p>To host: copy <code>dist/</code> to any static-file host. Works under any subpath because <code>index.html</code> references <code>bundle.js</code> with no leading slash.</p>
+
+<h2>URL parameters</h2>
+<ul>
+  <li><code>?seed=N</code> — integer seed for puzzle generation (default <code>1</code>).</li>
+</ul>
+
+<h2>Rules</h2>
+<p>The board is a 7×7 lattice of grid positions. A subset of those positions are <strong>islands</strong>, drawn as black filled circles with a single digit (1..8) inside. The digit is that island's <em>required degree</em>: the total number of bridge endpoints that must attach to it.</p>
+<p>Connect islands with <strong>bridges</strong> drawn as straight horizontal or vertical lines between two islands. Rules:</p>
+<ul>
+  <li>A bridge runs only between two islands that share the same row or the same column, with no other island strictly between them.</li>
+  <li>Between any pair of islands you may draw <strong>0, 1, or 2</strong> bridges. Two bridges are drawn as two parallel lines.</li>
+  <li>Bridges may not <strong>cross</strong> each other — a horizontal bridge and a vertical bridge cannot pass through the same lattice cell.</li>
+  <li>Each island's total bridge endpoints must equal its digit. (A double bridge counts as 2 endpoints on each of its islands.)</li>
+  <li>All islands must form a <strong>single connected component</strong> via the bridges drawn.</li>
+</ul>
+
+<h2>Controls</h2>
+<ul>
+  <li><strong>Title screen:</strong> press <em>Space</em> or click anywhere to begin.</li>
+  <li><strong>Mouse — left click between two islands:</strong> cycle the bridge count along that segment: 0 → 1 → 2 → 0.</li>
+  <li><strong>Arrow keys:</strong> move the keyboard cursor between adjacent island-pair segments.</li>
+  <li><strong>Space / Enter:</strong> cycle the bridge count at the cursor.</li>
+</ul>
+
+<h2>Coordinates</h2>
+<p>The lattice is 7×7. Rows are numbered 0..6 top to bottom; columns are numbered 0..6 left to right. Small coordinate labels (0..6) are printed in the outer margin on all four sides (above the top row, below the bottom row, and to the left and right of the lattice). These are orientation labels, not islands. An island's position is identified as <code>(row, col)</code>.</p>
+
+<h2>Win condition</h2>
+<p>You win when (a) every island's bridge-endpoint total exactly equals its printed digit, AND (b) all islands belong to a single connected component via the drawn bridges, AND (c) no two bridges cross. Each generated seed has a unique solution. The board shows a SOLVED indicator once <code>state.won</code> flips to true.</p>
+
+<hr />
+<p><small>Two-color palette · 14 KB bundle ceiling · no runtime dependencies.</small></p>
+</body>
+</html>

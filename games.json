@@ -1,0 +1,124 @@
+{
+  "games": [
+    {
+      "slug": "lanternkeep",
+      "title": "Lanternkeep",
+      "tagline": "1-bit stealth: your lantern reveals the room — and gets you seen.",
+      "description": "A 1-bit top-down stealth puzzle across twelve hand-designed courtyards. Toggle your lantern to memorize the layout, then move in the dark to avoid guard vision cones. Reach the well to refill oil, light the final beacon to win. No procgen, no story, no upgrades — just twelve tight rooms.",
+      "features": [
+        "Twelve hand-designed courtyards",
+        "Two-color palette (#0a0a0a + #e8e4d4)",
+        "Static and slow-patrolling guards with vision cones",
+        "Oil meter and refill wells",
+        "No external assets — all art drawn from primitives in code",
+        "Vanilla TypeScript + HTML5 Canvas, single bundle"
+      ],
+      "rules": "WASD or arrow keys to step one tile at a time. Space toggles the lantern. With the lantern ON the whole room is visible but you can be spotted by guards inside their cones — getting spotted respawns you at the entry tile. With the lantern OFF you are detection-immune but see only a 3-tile aura. Step onto wells to refill oil. Step onto the exit tile to advance. Beat courtyard 12 to win."
+    },
+    {
+      "slug": "nonogram",
+      "title": "Nonogram",
+      "tagline": "Picross / griddler. 10×10, line-solvable, one puzzle per page.",
+      "description": "A procedurally-generated nonogram (picross / griddler) on a 10×10 grid. Every accepted puzzle is line-solvable — no guessing required — and has a unique solution verified at generation. Two-color palette, vanilla TypeScript, single seeded puzzle per page load.",
+      "features": [
+        "10×10 line-solvable difficulty class",
+        "1000-puzzle generator sample with ≥95% line-solver success",
+        "Unique-solution verification at generation",
+        "Seeded by URL hash for reproducibility",
+        "Two-color palette, no external assets",
+        "Vanilla TypeScript + esbuild"
+      ],
+      "rules": "Numbers along the top and left edges describe runs of filled cells in that column or row, in order. Click a cell to fill it; click again to mark it empty (X); a third time clears it. Solve when every row and column matches its clues exactly."
+    },
+    {
+      "slug": "slitherlink",
+      "title": "Slitherlink",
+      "tagline": "Draw a single closed loop. Numbers count their edges.",
+      "description": "Classic Slitherlink on a 7×7 cell grid (8×8 dot lattice). Draw a single closed loop along cell edges — no branches, no crossings, no ends. Each numbered cell constrains exactly that many of its four edges to lie on the loop. Generated puzzles are verified to have a unique solution.",
+      "features": [
+        "7×7 cell grid (8×8 dot lattice)",
+        "Mixed deduction depths — ~40% pure-deduction easy, ~10% lookahead hard",
+        "Unique-solution generation",
+        "Three-state edges: drawn / X / blank",
+        "Mouse and keyboard input",
+        "Palette-strict two-color rendering"
+      ],
+      "rules": "Click an edge midpoint to cycle blank → drawn → X (denial mark) → blank. Or use arrow keys to move a cursor between edges and Enter to cycle the highlighted edge. Each digit constrains its cell to that many drawn edges. You win when the drawn edges form exactly one closed loop with no branches, no crossings, and no dangling ends."
+    },
+    {
+      "slug": "hashi",
+      "title": "Hashi",
+      "tagline": "Hashiwokakero. Bridge the islands without crossing.",
+      "description": "Hashiwokakero — Bridges. Connect numbered islands with horizontal and vertical bridges so that each island has exactly its labelled number of bridge-endpoints, all islands form one connected component, and bridges never cross. Up to two bridges between any island pair. Unique-solution generation verified by backtracking solver.",
+      "features": [
+        "Numbered-island bridge puzzles",
+        "Up to two bridges per island pair",
+        "Unique-solution generation",
+        "Generator sample ≥30% acceptance on uniqueness",
+        "Two-color palette, deterministic rendering",
+        "Vanilla TypeScript single-bundle build"
+      ],
+      "rules": "Click between two islands to add a bridge; click again to add a second bridge; a third click removes both. Each island must finish with exactly the number of bridge-endpoints shown on it. Bridges may not cross. All islands must form a single connected network."
+    },
+    {
+      "slug": "sudoku",
+      "title": "Sudoku",
+      "tagline": "Classic 9×9, with technique-tier difficulty.",
+      "description": "Classic 9×9 sudoku with constraint-deduction-only difficulty tiers — every puzzle is solvable without guessing. Tiers are assigned by the techniques required to solve: easy (naked/hidden singles), medium (pairs/pointing), hard (X-wing/triples), expert (swordfish, XY-wing, single backtrack). 100% unique-solution generation.",
+      "features": [
+        "Technique-tier classification (easy / medium / hard / expert)",
+        "100% no-guess-required up through expert",
+        "Constraint-propagation + backtracking solver",
+        "100% unique-solution acceptance",
+        "Visible 3×3 box subdivisions",
+        "Vanilla TypeScript, single-bundle build"
+      ],
+      "rules": "Fill every cell with a digit 1–9 so that each row, each column, and each of the nine 3×3 boxes contains every digit exactly once. Click a cell to select; type 1–9 to enter; type 0 or Backspace to clear. Givens are fixed and cannot be edited."
+    },
+    {
+      "slug": "akari",
+      "title": "Akari",
+      "tagline": "Light Up. Bulbs on white cells; numbers constrain neighbors.",
+      "description": "Akari / Light Up — a Nikoli constraint puzzle on a 10×10 grid. Place bulbs on white cells so every white cell is illuminated, no bulb illuminates another, and every numbered black cell has exactly its labelled number of bulbs in its 4-orthogonal neighbors. Bulbs illuminate their entire row and column until blocked by a black cell or the grid edge.",
+      "features": [
+        "10×10 grid with black/white cell mix",
+        "Numbered black cells (0–4) constraining neighbor bulb counts",
+        "Bulb annotation and no-bulb annotation modes",
+        "Unique-solution generation",
+        "Constraint-propagation solver",
+        "Two-color palette rendering"
+      ],
+      "rules": "Arrow keys move the cursor; Space toggles a bulb on the current white cell; X toggles a 'no-bulb' annotation (mutually exclusive with bulb). Win when every white cell is illuminated, no bulb shares an unobstructed row/column with another bulb, and every numbered black cell has exactly N bulbs in its 4-orthogonal neighbors."
+    },
+    {
+      "slug": "shikaku",
+      "title": "Shikaku",
+      "tagline": "Partition the grid into rectangles. Each clue equals its area.",
+      "description": "Shikaku (四角に切れ) — a Nikoli partition puzzle on a 10×10 grid. Divide the grid into axis-aligned rectangles such that each rectangle contains exactly one numbered clue and the number equals the rectangle's area in cells. Every cell ends up inside exactly one rectangle. Tap-tap commit model (anchor → cursor → commit), no drag preview.",
+      "features": [
+        "10×10 partition puzzle",
+        "Tap-tap commit input model (no drag)",
+        "Per-commit rectangle validation — invalid commits rejected",
+        "Unique-solution generation",
+        "Numbered-clue area constraints",
+        "Vanilla TypeScript single-bundle build"
+      ],
+      "rules": "Arrow keys move the cursor. Press Space on an empty cell to set an anchor; press Space again at a different cell to commit a rectangle from anchor to cursor. The rectangle is accepted only if it contains exactly one clue and its area matches that clue. Press X to clear the rectangle covering the cursor cell. Press Escape to cancel a pending anchor. Win when every cell belongs to a committed rectangle."
+    },
+    {
+      "slug": "starbattle",
+      "title": "Star Battle",
+      "tagline": "One star per row, column, and region. No two stars adjacent.",
+      "description": "Star Battle 1★ on an 8×8 grid with region partition. Place stars so that each row, each column, and each region contains exactly one star, and no two stars are orthogonally or diagonally adjacent. Three count constraints and one local-adjacency constraint — pure exact-cover deduction, no global connectivity or arithmetic.",
+      "features": [
+        "8×8 grid with region partition",
+        "Exact-cover deduction (1★ variant)",
+        "Region/row/column count constraints",
+        "Local adjacency constraint (no king-move neighbors)",
+        "Star and 'no-star' annotation modes",
+        "Unique-solution generation"
+      ],
+      "rules": "Arrow keys move the cursor. Space toggles a star on the cursor cell. X toggles a 'no-star' annotation. Win when each row, each column, and each region contains exactly one star, and no two stars are adjacent — including diagonally."
+    }
+  ]
+}
