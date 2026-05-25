@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Yajilin — Rules</title>
+<style>
+body{font-family:system-ui,sans-serif;background:#e8e4d4;color:#0a0a0a;max-width:720px;margin:2em auto;padding:0 1em;line-height:1.5;}
+h1,h2{font-weight:700;}
+code,kbd{background:#d8d4c4;padding:2px 6px;border-radius:3px;}
+</style></head><body>
+<h1>YAJILIN</h1>
+<p>A Nikoli logic puzzle on a 6×6 grid. Some cells are <b>clues</b> showing an
+<b>arrow</b> and a <b>number</b>: the number says how many <b>black cells</b>
+exist in the arrow's direction from the clue cell to the edge of the grid.</p>
+
+<h2>Goal</h2>
+<p>Fill every non-clue cell as either <b>BLACK</b> or part of a single <b>closed LOOP</b>.</p>
+
+<h2>Rules</h2>
+<ul>
+  <li>Each arrow-clue's number = count of BLACK cells in the arrow's direction (clue cells along the way are not counted, but they don't block the sight line — it continues to the grid edge).</li>
+  <li>No two BLACK cells are orthogonally adjacent.</li>
+  <li>BLACK cells are NOT part of the loop.</li>
+  <li>Clue cells are NOT part of the loop.</li>
+  <li>All loop cells form a single closed cycle, each entered exactly once.</li>
+</ul>
+
+<h2>Controls</h2>
+<ul>
+  <li><kbd>Arrows</kbd> — move the cursor.</li>
+  <li><kbd>Space</kbd> — toggle <b>empty ↔ black</b> on a non-clue cell. If the cell was a loop cell, Space clears it to empty first.</li>
+  <li><kbd>L</kbd> — toggle <b>empty ↔ loop</b> on a non-clue cell. If the cell was black, L clears it to empty first.</li>
+  <li><kbd>X</kbd> — clear the cursor cell to empty.</li>
+  <li>Any input on a clue cell is silently ignored.</li>
+  <li>On the title screen, press any key to begin.</li>
+</ul>
+
+<h2>Visual conventions</h2>
+<ul>
+  <li><b>Black cell:</b> solid black fill.</li>
+  <li><b>Loop cell:</b> off-white with a small black dot in the center. The loop's connecting segments are drawn automatically between adjacent loop cells.</li>
+  <li><b>Clue cell:</b> off-white with the number in the top half and the arrow in the bottom half.</li>
+  <li><b>Cursor:</b> 3-pixel inset outline (black on light cells, off-white on black cells).</li>
+</ul>
+
+<p>The grid is labeled <code>A–F</code> across the columns and <code>1–6</code>
+down the rows.</p>
+</body></html>

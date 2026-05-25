@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Lanternkeep — Arcade</title>
+<title>Yajilin — Arcade</title>
 <style>
 :root {
   --bg: #0a0a0c;
@@ -44,25 +44,25 @@ footer.site { color: var(--fg-dim); font-size: 0.85rem; margin-top: 4rem; paddin
 <div class="wrap">
   <a class="back" href="../">← arcade</a>
   <article>
-    <h1>Lanternkeep</h1>
-    <p class="tagline" style="color:var(--fg-dim);font-size:1.05rem;">Memorize the room with the lantern lit — then deduce a safe path in the dark.</p>
+    <h1>Yajilin</h1>
+    <p class="tagline" style="color:var(--fg-dim);font-size:1.05rem;">Numbered arrows count black cells along a sightline. Draw one closed loop through the rest.</p>
 
-    <a class="play-cta" href="./">▶ Play Lanternkeep</a>
+    <a class="play-cta" href="./">▶ Play Yajilin</a>
 
     <h2>About</h2>
-    <p>A 1-bit top-down stealth puzzle across twelve hand-designed courtyards. Toggle your lantern to memorize the layout, then move in the dark to avoid guard vision cones. Reach the well to refill oil, light the final beacon to win. No procgen, no story, no upgrades — just twelve tight rooms.</p>
+    <p>Classic Yajilin on a 6×6 grid. Each clue cell carries a number and a direction arrow — the number counts the black cells along that direction's sightline to the grid edge (clue cells themselves don't block or count). Place black cells and draw a single closed loop through every non-clue, non-black cell. Black cells never touch orthogonally. Unique-solution generation verified by backtracking solver.</p>
 
     <h2>How to play</h2>
-    <p>WASD or arrow keys to step one tile at a time. Space toggles the lantern. With the lantern ON the whole room is visible but you can be spotted by guards inside their cones — getting spotted respawns you at the entry tile. With the lantern OFF you are detection-immune but see only a 3-tile aura. Step onto wells to refill oil. Step onto the exit tile to advance. Beat courtyard 12 to win.</p>
+    <p>Arrow keys move the cursor. Space toggles the cell black/unmarked. L cycles the cell's loop state through the loop-edge configurations. X clears the cell. Clue cells are read-only. Win when every non-clue, non-black cell is on a single closed simple cycle, every clue's count matches the black cells along its arrow direction to the edge, and no two black cells touch orthogonally.</p>
 
     <h2>Features</h2>
     <ul>
-      <li>Twelve hand-designed courtyards</li>
-      <li>Two-color palette (#0a0a0a + #e8e4d4)</li>
-      <li>Static and slow-patrolling guards with vision cones</li>
-      <li>Oil meter and refill wells</li>
-      <li>No external assets — all art drawn from primitives in code</li>
-      <li>Vanilla TypeScript + HTML5 Canvas, single bundle</li>
+      <li>6×6 grid with mixed loop-cell + black-cell + clue-cell rules</li>
+      <li>Sightline-counting clues to grid edge</li>
+      <li>Single closed simple cycle through every non-clue, non-black cell</li>
+      <li>Loop-first generator with iterative pearl refinement</li>
+      <li>Day-one tier-targeted difficulty distribution (E≥35%, M≥30%, H≥20%, X≥10%)</li>
+      <li>Two-color palette, single-bundle vanilla TypeScript</li>
     </ul>
 
     <p style="margin-top:2.5rem;"><a href="../">← back to arcade</a></p>
