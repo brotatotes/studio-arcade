@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Kurodoko — Rules</title>
+<style>
+body{font-family:system-ui,sans-serif;background:#e8e4d4;color:#0a0a0a;max-width:720px;margin:2em auto;padding:0 1em;line-height:1.5;}
+h1,h2{font-weight:700;}
+code,kbd{background:#d8d4c4;padding:2px 6px;border-radius:3px;}
+</style></head><body>
+<h1>KURODOKO</h1>
+<p>A Nikoli logic puzzle on a 6×6 grid. Some cells are <b>clues</b> showing a
+<b>number</b>: that number is the total count of cells visible in a straight
+line from the clue (counting itself) in all four cardinal directions until
+blocked by a black cell or the grid edge.</p>
+
+<h2>Rules</h2>
+<ol>
+  <li><b>Sight count.</b> Each clue's number equals the count of cells (including itself) visible in unbroken horizontal + vertical sightlines from that cell, stopping at the nearest black cell or grid edge in each direction.</li>
+  <li><b>No adjacent blacks.</b> Two black cells never share an orthogonal edge.</li>
+  <li><b>Connected whites.</b> All non-black cells (including clue cells) form a single orthogonally-connected region.</li>
+</ol>
+<p><b>Clue cells stay white</b> — they can never be black. Any black-toggle input on a clue cell is silently ignored.</p>
+
+<h2>Controls</h2>
+<ul>
+  <li><kbd>Arrows</kbd> or <kbd>HJKL</kbd> — move the cursor.</li>
+  <li><kbd>Space</kbd> — toggle <b>white ↔ black</b> on the cursor cell (noop on clue cells).</li>
+  <li><kbd>X</kbd> — clear the cursor cell to white.</li>
+  <li>On the title screen, press any key to begin.</li>
+</ul>
+
+<h2>Visual conventions</h2>
+<ul>
+  <li><b>Black cell:</b> solid black fill.</li>
+  <li><b>White cell:</b> off-white interior.</li>
+  <li><b>Clue cell:</b> off-white with a centered number; stays white.</li>
+  <li><b>Cursor:</b> 3-pixel inset outline (black on white cells, off-white on black cells).</li>
+</ul>
+
+<p>The grid is labeled <code>A–F</code> across the columns and <code>1–6</code>
+down the rows.</p>
+</body></html>

@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Kurodoko — Arcade</title>
+<style>
+:root {
+  --bg: #0a0a0c;
+  --bg-2: #14141a;
+  --fg: #e8e4d4;
+  --fg-dim: #9a9588;
+  --accent: #d9b66c;
+  --border: #2a2a32;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: var(--bg); color: var(--fg); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; line-height: 1.55; }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+.wrap { max-width: 1100px; margin: 0 auto; padding: 2.5rem 1.5rem 4rem; }
+header.site { padding: 3rem 0 1.5rem; border-bottom: 1px solid var(--border); margin-bottom: 2.5rem; }
+header.site h1 { font-size: 2.4rem; margin: 0 0 0.4rem; letter-spacing: -0.01em; }
+header.site p.lede { color: var(--fg-dim); max-width: 64ch; margin: 0; font-size: 1.05rem; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.25rem; }
+.card { background: var(--bg-2); border: 1px solid var(--border); border-radius: 10px; padding: 1.25rem; display: flex; flex-direction: column; gap: 0.6rem; transition: transform .12s ease, border-color .12s ease; }
+.card:hover { transform: translateY(-2px); border-color: var(--accent); }
+.card a.title { color: var(--fg); font-size: 1.2rem; font-weight: 600; }
+.card .thumb { width: 100%; aspect-ratio: 16 / 9; background: #050507; border-radius: 6px; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.card .thumb svg { width: 80%; height: 80%; }
+.card .tagline { color: var(--fg-dim); font-size: 0.92rem; margin: 0; }
+.card .actions { margin-top: 0.4rem; display: flex; gap: 0.8rem; font-size: 0.9rem; }
+.back { display: inline-block; margin-bottom: 1.5rem; color: var(--fg-dim); font-size: 0.9rem; }
+article { max-width: 70ch; }
+article h1 { font-size: 2rem; margin: 0 0 0.5rem; }
+article h2 { margin-top: 2.2rem; font-size: 1.25rem; color: var(--accent); }
+article p { color: #d5d0bf; }
+article ul { color: #d5d0bf; }
+article .play-cta { display: inline-block; background: var(--accent); color: #1a1408; padding: 0.7rem 1.4rem; border-radius: 6px; font-weight: 600; margin: 1rem 0; }
+article .play-cta:hover { text-decoration: none; opacity: 0.92; }
+footer.site { color: var(--fg-dim); font-size: 0.85rem; margin-top: 4rem; padding-top: 1.5rem; border-top: 1px solid var(--border); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="../">← arcade</a>
+  <article>
+    <h1>Kurodoko</h1>
+    <p class="tagline" style="color:var(--fg-dim);font-size:1.05rem;">Clues count cells they see. Black some out, keep the whites connected, don't let two blacks touch.</p>
+
+    <a class="play-cta" href="./">▶ Play Kurodoko</a>
+
+    <h2>About</h2>
+    <p>Classic Kurodoko on a 6×6 grid. Each numbered clue cell sees exactly that many cells along its row and column (including itself), counting until blocked by a black cell or the grid edge. Mark some cells black so that: every clue's sight count matches, no two black cells share an edge, all white cells form one connected region, and clue cells stay white. Forward-design generator + iterative clue refinement guarantees unique solutions.</p>
+
+    <h2>How to play</h2>
+    <p>Arrow keys or HJKL move the cursor. Space toggles the cursor cell black/white. X clears the cell. Clue cells are read-only. Win when every clue's sight count is exactly right, no two blacks touch orthogonally, and all white cells form one connected region.</p>
+
+    <h2>Features</h2>
+    <ul>
+      <li>6×6 grid with sight-line counting clues</li>
+      <li>No two black cells orthogonally adjacent</li>
+      <li>All white cells form one connected region</li>
+      <li>Clue cells stay white (read-only)</li>
+      <li>Hypothesis-step difficulty classifier (E≥35%, M≥30%, H≥20%, X≥10%)</li>
+      <li>Day-one tier-targeted generation with corner-bias-easy / interior-bias-hard</li>
+      <li>Strict two-color palette, single-bundle vanilla TypeScript</li>
+    </ul>
+
+    <p style="margin-top:2.5rem;"><a href="../">← back to arcade</a></p>
+  </article>
+  <footer class="site">
+    <p>Open source · MIT licensed · <a href="https://github.com/brotatotes/studio-arcade">source on GitHub</a></p>
+  </footer>
+</div>
+</body>
+</html>

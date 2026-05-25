@@ -134,6 +134,22 @@
         "Two-color palette, single-bundle vanilla TypeScript"
       ],
       "rules": "Arrow keys move the cursor. Space toggles the cell black/unmarked. L cycles the cell's loop state through the loop-edge configurations. X clears the cell. Clue cells are read-only. Win when every non-clue, non-black cell is on a single closed simple cycle, every clue's count matches the black cells along its arrow direction to the edge, and no two black cells touch orthogonally."
+    },
+    {
+      "slug": "kurodoko",
+      "title": "Kurodoko",
+      "tagline": "Clues count cells they see. Black some out, keep the whites connected, don't let two blacks touch.",
+      "description": "Classic Kurodoko on a 6\u00d76 grid. Each numbered clue cell sees exactly that many cells along its row and column (including itself), counting until blocked by a black cell or the grid edge. Mark some cells black so that: every clue's sight count matches, no two black cells share an edge, all white cells form one connected region, and clue cells stay white. Forward-design generator + iterative clue refinement guarantees unique solutions.",
+      "features": [
+        "6\u00d76 grid with sight-line counting clues",
+        "No two black cells orthogonally adjacent",
+        "All white cells form one connected region",
+        "Clue cells stay white (read-only)",
+        "Hypothesis-step difficulty classifier (E\u226535%, M\u226530%, H\u226520%, X\u226510%)",
+        "Day-one tier-targeted generation with corner-bias-easy / interior-bias-hard",
+        "Strict two-color palette, single-bundle vanilla TypeScript"
+      ],
+      "rules": "Arrow keys or HJKL move the cursor. Space toggles the cursor cell black/white. X clears the cell. Clue cells are read-only. Win when every clue's sight count is exactly right, no two blacks touch orthogonally, and all white cells form one connected region."
     }
   ]
 }
