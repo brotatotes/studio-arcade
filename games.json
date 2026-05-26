@@ -166,6 +166,21 @@
         "Vanilla TypeScript + esbuild, single bundle"
       ],
       "rules": "Arrow keys or HJKL move the cursor. Press Space at any cell to set that region's water level to the cursor row — all cells in that region at or below the cursor row become water, above become air. Press X to fully dry the region. Match every row clue (left) and column clue (top): clue digit = number of water cells in that line."
+    },
+    {
+      "slug": "hitori",
+      "title": "Hitori",
+      "tagline": "Shade duplicates. Keep whites connected. No two blacks touch.",
+      "description": "Classic Hitori on a 6×6 numbered grid. Shade cells black so that each value appears at most once per row and per column among the remaining white cells. No two black cells may share an edge, and all white cells must form one orthogonally-connected region. Unique solution verified at generation; lower tiers require no guessing.",
+      "features": [
+        "6×6 grid, pre-printed numbers 1..6 with duplicates",
+        "Three constraints: row/column distinctness on whites, no-adjacent-blacks, white-connectivity",
+        "Tier-targeted generation (easy / medium / hard / expert)",
+        "Unique solution verified at generation",
+        "Strict two-color palette (#0a0a0a + #e8e4d4)",
+        "Vanilla TypeScript + esbuild, single bundle"
+      ],
+      "rules": "Arrow keys or HJKL move the cursor. Press Space to toggle shading at the cursor (white ↔ black). Press X to clear shading. Solve when each value appears at most once per row and column among white cells, no two black cells are adjacent, and all white cells form one connected region."
     }
   ]
 }
